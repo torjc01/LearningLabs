@@ -1,0 +1,5 @@
+FROM ethereum/client-go:alltools-stable
+
+WORKDIR /root
+
+COPY config.sql ./

@@ -1,0 +1,10 @@
+FROM mysql
+
+WORKDIR /db
+
+COPY config.sql /db/.
+
+ENV      MYSQL_ROOT_PASSWORD: blitzkrieg
+
+EXPOSE 3306
+EXPOSE 8080

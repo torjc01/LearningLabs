@@ -1,0 +1,108 @@
+#!/bin/bash
+export MSYS_NO_PATHCONV=1
+export DOCKERHOST=${APPLICATION_URL-$(docker run --rm --net=host eclipse/che-ip)}
+set -e
+
+#
+# Global utility functions - END
+#
+SCRIPT_HOME="$(cd "$(dirname "$0")" && pwd)"
+
+# =================================================================================================================
+# Usage:
+# -----------------------------------------------------------------------------------------------------------------
+usage() {
+  cat <<-EOF
+
+      Usage: $0 [command] [options]
+
+      Commands:
+
+      logs - Display the logs from the docker compose run (ctrl-c to exit).
+
+      start - Runs the containers in production mode.
+      up - Same as start.
+
+      stop - Stops the services.  This is a non-destructive process.  The volumes and containers
+             are not deleted so they will be reused the next time you run start.
+
+      down - Brings down the services and removes the volumes (storage) and containers.
+      rm - Same as down
+
+EOF
+  exit 1
+}
+
+# -----------------------------------------------------------------------------------------------------------------
+# Functions:
+# -----------------------------------------------------------------------------------------------------------------
+build() {
+  echo -e "\nBuilding mysqlDockerImage..."
+  docker build \
+    -t 'mysql-krypto-dev' \
+    -f './Dockerfile.dev' '..'
+}
+
+
+# =================================================================================================================
+toLower() {
+  echo $(echo ${@} | tr '[:upper:]' '[:lower:]')
+}
+# =================================================================================================================
+# Start-up routine 
+pushd "${SCRIPT_HOME}" >/dev/null
+COMMAND=$(toLower ${1})
+shift || COMMAND=usage
+
+# _startupParams=$(getStartupParams --force-recreate $@)
+
+case "${COMMAND}" in
+  logs)
+    configureEnvironment "$@"
+    docker-compose logs -f
+    ;;
+  build)
+    #_startupParams=$(getStartupParams $@)
+    #configureEnvironment $@
+    build # ${_startupParams}
+    ;;
+  start|start|up)
+    isJQInstalled
+    isCurlInstalled
+
+    if [[ ! -f ".env" ]]; then
+      AGENT_WALLET_SEED=$(generateSeed dts-vc-issuer-demo)
+      echo "Generated AGENT_WALLET_SEED=${AGENT_WALLET_SEED}"
+      echo "AGENT_WALLET_SEED=${AGENT_WALLET_SEED}" > .env
+    fi
+
+    if [ -z "$NGROK_AGENT_ENDPOINT" ]; then
+      isNgrokInstalled
+      export NGROK_AGENT_ENDPOINT=$(${CURL_EXE} http://localhost:4040/api/tunnels | ${JQ_EXE} --raw-output '.tunnels | map(select(.name | contains("issuer-agent"))) | .[0] | .public_url')
+    fi
+
+    checkNgrokTunnelActive
+    echo "The agent endpoint is: ${NGROK_AGENT_ENDPOINT}"
+
+    configureEnvironment "$@"
+    customizeKeycloakConfig
+    docker-compose --env-file .env up -d ${_startupParams}
+    docker-compose logs -f
+    ;;
+  stop)
+    configureEnvironment
+    docker-compose stop
+    ;;
+  rm|down)
+    if [ -f ".env" ] ; then
+        rm ".env"
+    fi
+    configureEnvironment
+    deleteVolumes
+    ;;
+  *)
+    usage
+    ;;
+esac
+
+popd >/dev/null

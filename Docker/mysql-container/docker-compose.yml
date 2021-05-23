@@ -1,0 +1,23 @@
+version : "3.1"
+services: 
+  db:
+    container_name: MySQLKrypto
+    image: mysql-krypto-dev
+    command: 
+      --default-authentication-plugin=mysql_native_password --character-set-server=utf8 --collation-server=utf8_general_ci
+    restart: always
+    environment: 
+      MYSQL_DATABASE: dummy
+      MYSQL_ROOT_PASSWORD: blitzkrieg
+      # MYSQL_USER: julio
+      # MYSQL_PASSWORD: A123456
+      ports: 3307:3306
+    volumes: 
+      - D:\Development\mysql-container\data:/var/lib/mysql
+
+  adminer: 
+    container_name: AdminerKrypto
+    image: adminer
+    restart: always
+    ports: 
+      - 8888:8080
