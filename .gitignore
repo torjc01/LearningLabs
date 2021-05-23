@@ -93,3 +93,9 @@ Temporary Items
 *.a26
 *.x86
 *.out
+
+# Various documents
+*.doc 
+*.xls
+*.csv
+*.ptt
