@@ -99,3 +99,10 @@ Temporary Items
 *.xls
 *.csv
 *.ptt
+
+*/node_modules/
+
+*.woff*
+**/font_awesome/*
+*.eot
+*.ttf
