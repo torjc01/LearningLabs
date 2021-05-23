@@ -1,0 +1,7 @@
+<div ng-controller="MainController">
+   {{ countdown }}
+    <form name="searchUser" ng-submit="search(username)">
+        <input type="search" required placeholder="User to search" ng-model="username" />
+        <input type="submit" value="Search" ng-click="search(username)" /> 
+    </form>
+</div>
