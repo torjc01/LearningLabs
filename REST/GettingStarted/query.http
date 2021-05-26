@@ -1,0 +1,80 @@
+#/*
+#* SPDX-License-Identifier: LiLiQ-R-v.1.1
+#* License-Filename: /LICENSE
+#*/
+##############################################################
+# Requetes http pour l'émeteur d'attestations d'identité 
+##############################################################
+### Définition des variables globales
+@hostname = http://localhost:7000
+@id = 2
+@name = h
+
+####
+#### Get list of pies  
+#### 
+GET {{hostname}}/api/ HTTP/1.1
+Content-Type: application/json
+
+####
+#### Get pie by id 
+#### 
+GET {{hostname}}/api/{{id}} HTTP/1.1
+Content-Type: application/json
+
+####
+#### Search pie by id and name
+#### 
+GET {{hostname}}/api/search?id={{id}}&name={{name}}
+Content-Type: application/json
+
+####
+#### Search pie by name
+#### 
+GET {{hostname}}/api/search?name={{name}}
+Content-Type: application/json
+
+####
+#### Insert a new pie
+#### 
+POST {{hostname}}/api/
+Content-Type: application/json
+
+{
+    "id": 9, 
+    "name": "Apple", 
+    "wholePrice": 19.99, 
+    "slicePrice": 4.99, 
+    "imageUrl": "images/apple.jpg"
+}
+
+####
+#### Update pie 
+#### 
+PUT {{hostname}}/api/{{id}}
+Content-Type: application/json
+
+{
+    "name": "Green Apple", 
+    "wholePrice": 19.99, 
+    "slicePrice": 5.99, 
+    "imageUrl": "images/greenApple.jpg"
+}
+
+####
+#### Delete pie by id
+#### 
+DELETE {{hostname}}/api/{{id}}
+Content-Type: application/json
+
+
+####
+#### Update pie 
+#### 
+PATCH {{hostname}}/api/{{id}}
+Content-Type: application/json
+
+{
+    "name": "Raspberry", 
+    "imageUrl": "images/raspberry.jpg"
+}

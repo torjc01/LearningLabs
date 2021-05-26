@@ -106,3 +106,5 @@ Temporary Items
 **/font_awesome/*
 *.eot
 *.ttf
+
+**node_modules
