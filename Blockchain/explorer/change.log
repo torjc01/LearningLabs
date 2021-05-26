@@ -1,0 +1,52 @@
+Blockchain Explorer Kryptogarten 
+Julio Cesar Torres 
+
+===================================
+Versao 1.0 - 13 de  dezembro  2019
+===================================
+- Incluir fonte de cotacao de ethereum para conversao em moeda fiat; 
+- Conversao de ether para dolar canadense, e inclusao de coluna com 
+  valor em CAD no componente Contas.
+
+
+===================================
+Versao 0.0.3 - 19 de novembro 2019
+===================================
+- Inclui componente de Tokens, listando o saldo em conta do token 
+  default para a coinbase;
+- Corrige display dos campos Status e Endereço do contrato no componente Trancacao;
+
+
+===================================
+Versao 0.0.2 - 13 de novembro 2019
+===================================
+- Inclui campo "quantidade de confirmacoes" no componente Transacao; 
+- Correcao bug do link para contas From e To no componente Transacao;
+- Correcao do display do timestamp de geracao do bloco no componente; 
+- Correcao titulo da pagina da aplicacao;
+- Display de saldo em ethers (componentes Home e contas);
+- Inclui saldo da coinbase no componente Home;
+- Inclui arquivo de parametrizacao config.js; 
+- Troca icone favorito do react por personalizado.
+
+
+===================================
+Versao 0.0.1 - 08 de novembro 2019
+===================================
+- Criacao da infraestrutura de base de comunicacao com react. 
+- Implementacao dos componentes: 
+    - Home: listagem dos ultimos blocos, limitados em 100 blocos; 
+    - Contas: listagem das contas disponiveis no web3.provider; 
+    - Conta: detalhes de uma conta; 
+    - Transacao: detalhes de uma transacao; 
+
+TODO: 
+    OK - Transacao: link para contas From e To nao carregam detalhes das contas;
+    OK - Parametrizacao da aplicacao em arquivo de configuracao ou banco de dados: 
+        a) Web3 Provider; b) limite de blocos recuperados no Home; 
+    - Block, Transacao Token e Conta: incluir campo de pesquina nas paginas raizes.
+    - Conta: corrigir NaN no campo Seq. 
+    - Contas, Conta e Transacao: mostrar saldo em weis e em ether
+    - Transacao: identificar o tipo de transacao, e renderizar alguma indicacao visual.
+    - Contas: funcao mascara de formatacao para o saldo, com decimais e padding.
+    - Mascara de formatacao: numeros inteiros
