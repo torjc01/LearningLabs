@@ -1,0 +1,1 @@
+# Imagem base Docker - Kryptogarten
