@@ -11,6 +11,7 @@ let cors = require('cors');
 // Constants definitions 
 const PORT = 7000; 
 const HOST_NAME = 'http://localhost';
+const APP_NAME = "Bethanys Pie Shop";
 
 // Configure middleware to support JSON data parsing in request object
 app.use(express.json()); 
@@ -204,5 +205,5 @@ app.use(errorHelper.errorHandler);
 
 // Create server to linsten on PORT 
 let server = app.listen(PORT, function(){
-    console.log(`Node server is running on ${HOST_NAME}:${PORT}`);
+    console.log(`${APP_NAME} is running on Node server ${HOST_NAME}:${PORT}/api`);
 });
