@@ -1,8 +1,34 @@
+# ###
+# Filename: docker-compose.yml
+# Fichier docker-compose, responsable de lancer une instance standalone de la base de données 
+# du Club de Judo de Québec. Utiliser ce fichier seulement pour faire des interventions dans 
+# la base de données lorsque l'application générale du website est arretée. Si elle est up, 
+# il suffit d'acceder le site d'adminsitration de la BD. Dans les deux cas, la page admin est 
+# sous l'adresse:  
+#     http://localhost:8888
+#
+# Author: Julio-Cesar Torres <juliozohar@gmail.com> (@juliozohar)
+# Date: 2021-06-03
+#
+#   Copyright 2021 Kryptogarten LLC
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+# ###
 version : "3.1"
 services: 
-  db:
-    container_name: MySQLKrypto
-    image: mysql-krypto-dev
+  mysqldb:
+    container_name: MySQLDB-stdalone
+    image: cjq-mysql-db
     command: 
       --default-authentication-plugin=mysql_native_password --character-set-server=utf8 --collation-server=utf8_general_ci
     restart: always
@@ -16,8 +42,10 @@ services:
       - D:\Development\mysql-container\data:/var/lib/mysql
 
   adminer: 
-    container_name: AdminerKrypto
+    container_name: AdminerKrypto-stdalone
     image: adminer
     restart: always
     ports: 
       - 8888:8080
+    depends_on:
+      - mysqldb
