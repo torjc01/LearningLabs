@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/micheleriva/fulltext-search-with-node-and-elasticsearch-on-docker#readme",
   "dependencies": {
-    "@elastic/elasticsearch": "^7.3.0",
+    "@elastic/elasticsearch": "^7.17.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.0.0",
