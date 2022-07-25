@@ -21,7 +21,7 @@
     "mysql2": "^2.2.5",
     "ngrok": "^4.0.1",
     "nodemon": "^2.0.7",
-    "sequelize": "^6.19.1",
+    "sequelize": "^6.21.2",
     "swagger-ui-express": "^4.1.6"
   }
 }
